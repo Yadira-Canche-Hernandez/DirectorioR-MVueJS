@@ -13,6 +13,8 @@ export default {
       cont:2,
       search:"",
       id: 0,
+      infoUno:[],
+      personaje: [],
 
     }
   },
@@ -36,7 +38,6 @@ export default {
         this.info = response.data.info;
         console.log(this.info)
         this.personajes = response.data.results;
-        this.prev = this.info.prev;
         
       })
       this.cont = this.cont-1
@@ -57,16 +58,20 @@ export default {
       })
       this.cont++
     },
+    //informacion de un personaje
     InfoPer(id) {
+      
       //url de consumo API
-      API_URL='https://rickandmortyapi.com/api/character/?id='+id 
+      API_URL='https://rickandmortyapi.com/api/character/'+id 
+      console.log(API_URL)
       //lo obtiene
       axios.get(API_URL)
       //
       .then((response) => {
-        this.info = response.data.info;
-        this.personajes = response.data.results.id;
-        console.log(this.personajes)
+        console.log(response) //regresa datos de un solo personaje
+        //contiene el array de cada personaje con sus datos
+        this.infoUno = response.data;
+        console.log(this.infoUno)
       })
       this.id++
     }
@@ -98,27 +103,34 @@ export default {
     <input type="text" v-model="search" placeholder="Buscar por nombre">
   </div>
 
+<!--busqueda de personajes
+  <div class="mx-auto">
+  <div class="content-personajes flex" v-for="personaje in filtrarBusqueda"  :key="personaje.id">
 
-  <div class="content-personajes" v-for="personaje in filtrarBusqueda"  :key="personaje.id">
-
+    carta de personaje
     <div class="personaje">
+
       <img :src="personaje.image" alt="">
       <div class="info-personaje">
-        <h2> {{ personaje.name}}</h2>
-        <h4> {{ personaje.species}}</h4>
-        <h4> {{ personaje.status}}</h4>
+        <h2> Nombre {{ personaje.name}}</h2>
+        <h4> Especie {{ personaje.species}}</h4>
+        <h4> Estado {{ personaje.status}}</h4>
+
       </div>
+
     </div>
 
   </div>
-
+</div>
+-->
 
   <!--Listado de cada 20 personajes o sea pagina-->
   <div class="text-2xl my-10 text-black mx-5 sm:py-2">
     <ul class="text-xl">
       <li v-for="p in personajes">
-        <button @click="InfoPer(id)">{{ p.name }} id:{{ p.id }}</button>
-        <!--<RouterLink to="/personaje" class="py-5" :id="p.id"> {{ p.name }} </RouterLink> -->
+        <button @click="InfoPer(p.id)">{{ p.name }} id:{{ p.id }}</button>
+
+        
       </li>
     </ul>
   </div>
