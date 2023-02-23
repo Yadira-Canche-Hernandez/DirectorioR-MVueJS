@@ -109,37 +109,12 @@ export default {
   <div class="mx-auto">
   <div class="content-personajes flex" v-for="personaje in filtrarBusqueda"  :key="personaje.id">
 
-    carta de personaje
-    <div class="personaje">
-
-      <img :src="personaje.image" alt="">
-      <div class="info-personaje">
-        <h2> Nombre {{ personaje.name}}</h2>
-        <h4> Especie {{ personaje.species}}</h4>
-        <h4> Estado {{ personaje.status}}</h4>
-
-      </div>
-
-    </div>
-
-  </div>
-</div>
 -->
+<div>
+  
 
-  <!--Listado de cada 20 personajes o sea pagina-->
-  <div class="text-2xl my-10 text-black mx-5 sm:py-2">
-    <ul class="text-xl">
-      <li v-for="p in personajes">
-        <!--Llamando función obtener info personal por personaje-->
-        <button @click="InfoPer(p.id)">{{ p.name }} id:{{ p.id }}</button>
-        
-      </li>
-    </ul>
-  </div>
-
-  <div v-if="mostrar">
-      <h1>{{ infoUno.name }}</h1>
-  </div>
+  
+</div>
     
   <!--Botones paginas-->
   <div class="mt-5">
@@ -151,4 +126,38 @@ export default {
       <button @click="pagSig(cont)" class="h-14 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white mb-8 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Siguiente </button>
   </div>
   
+  <div class="grid grid-cols-2">
+    <div>
+      <!--Listado de cada 20 personajes o sea pagina-->
+      <div class="text-2xl my-10 text-black mx-5 sm:py-2">
+        <ul class="text-xl">
+          <li v-for="p in personajes">
+            <!--Llamando función obtener info personal por personaje-->
+            <button @click="InfoPer(p.id)">{{ p.name }} id:{{ p.id }}</button>
+            
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div>
+      <!--carta de personaje-->
+      <div v-if="mostrar">
+        
+        <div class="personaje">
+
+          <img :src="infoUno.image" alt="">
+          <div class="info-personaje">
+            <h2> Nombre {{ infoUno.name}}</h2>
+            <h4> Especie {{ infoUno.species}}</h4>
+            <h4> Estado {{ infoUno.status}}</h4>
+
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
 </template>
