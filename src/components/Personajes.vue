@@ -15,7 +15,7 @@ export default {
       id: 0,
       infoUno:[],
       personaje: [],
-
+      mostrar: false,
     }
   },
 
@@ -74,6 +74,8 @@ export default {
         console.log(this.infoUno)
       })
       this.id++
+      this.mostrar=true
+      console.log(this.mostrar)
     }
   },
   computed: {
@@ -128,11 +130,15 @@ export default {
   <div class="text-2xl my-10 text-black mx-5 sm:py-2">
     <ul class="text-xl">
       <li v-for="p in personajes">
+        <!--Llamando función obtener info personal por personaje-->
         <button @click="InfoPer(p.id)">{{ p.name }} id:{{ p.id }}</button>
-
         
       </li>
     </ul>
+  </div>
+
+  <div v-if="mostrar">
+      <h1>{{ infoUno.name }}</h1>
   </div>
     
   <!--Botones paginas-->
