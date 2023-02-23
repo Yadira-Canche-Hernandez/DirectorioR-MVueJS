@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="greetings">
+  <div class="w-full">
     <h1 class="flex-col text-center">{{ msg }}</h1>
     
   </div>
