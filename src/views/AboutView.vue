@@ -1,11 +1,12 @@
 <template class="flex-col justify-items-center h-screen py-2 px-2  bg-black font-serif rounded-md m-10 ">
   
   <div class="items-center h-screen" >
-
-    <h1 class="text-center m-5 text-3xl my-10 text-center text-black py-4 mx-5 sm:py-2">¿Quiénes son?</h1>
     
     <div class="flex bg-white rounded-lg py-2 px-2 mt-5 my-4 mb-5 gap-5 mx-7">
       
+      <span class="flex-col"><h1 class="text-center m-5 text-3xl my-10 text-center text-black py-4 mx-5 sm:py-2">¿Quiénes son?</h1></span>
+    
+    
       <p class="text-xl m-2 py-5 text-black text-left ">
         El dúo formado por el genial (y amoral) científico Rick y su valiente pero no muy inteligente nieto Morty surgió como una parodia de la trilogía Regreso al futuro desarrollada por Justin Roiland en varios provocadores cortometrajes. Sin embargo, en su versión para la serie, es una de las parejas más atractivas del ámbito, a la altura de Peter Griffin y su perro Brian, Cartman y Butters o Homer y…, bueno, Homer y cualquier otro personaje con el que comparta plano.
         <br>

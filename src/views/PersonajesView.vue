@@ -4,7 +4,7 @@ import Personajes from "../components/Personajes.vue";
 
 <template>
   <div>
-    <h1>Personajes del programa</h1>
+    <h1 class="text-center m-5 text-3xl my-10 text-center text-black py-4 mx-5 sm:py-2">Personajes del programa</h1>
 
     <Personajes />
   </div>
