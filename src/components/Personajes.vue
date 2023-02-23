@@ -63,7 +63,7 @@ export default {
   
   <ul>
     <li v-for="p in personajes">
-      <a >{{ p.name }} id:{{ p.id }}</a> 
+      <a href="./Personaje.vue" >{{ p.name }} id:{{ p.id }}</a> 
     </li>
   </ul>
 

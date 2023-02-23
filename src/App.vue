@@ -1,37 +1,33 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView } from 'vue-router'
 import Titulo from "./components/Titulo.vue";
 </script>
 
-<template class="bg-purple-200 w-full h-full">
+<template>
 
-    <div class="flex-col w-full bg-purple-100">
+<div class="flex-col w-full bg-purple-200">
       
       
 
-    <header>
-
-      <nav class ="bg-yellow flex justify-between items-center">
-
-        <RouterLink to="/" class="p-2 text-white block p-5 text-center ">Inicio</RouterLink>
+      <header>
+  
+        <nav class ="bg-black flex justify-self-center items-center text-white gap-5 font-semibold hover:text-gray-700">
+          <RouterLink to="/">Inicio</RouterLink>
+          <RouterLink to="/about" class="py-5">¿Quiénes son?</RouterLink>
+          <RouterLink to="/personajes">Personajes</RouterLink>
+          
+        </nav>
         
-        <RouterLink to="/about" class="p-2 text-white block p-5 text-center">¿Quiénes son?</RouterLink>
-        
-        <RouterLink to="/personajes" class="p-2 text-white block p-5 text-center">Personajes</RouterLink>
-        
-      </nav>
-      
-      <div class="w-full">
-
-        <Titulo msg="Directorio de personajes de Rick & Morty" />
-
-        
-      </div>
-
-    </header>
-
-
-  <RouterView />
-</div>
-</template>
-
+        <div class="w-full">
+  
+          <Titulo msg="Directorio de personajes de Rick & Morty" />
+  
+          
+        </div>
+  
+      </header>
+  
+  
+    <RouterView />
+  </div>
+  </template>
