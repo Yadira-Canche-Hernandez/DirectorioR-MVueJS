@@ -83,11 +83,11 @@ export default {
     filtrarBusqueda(){
       //busca en cada personaje
       return this.personajes.filter((personaje) => {
+        console.log(personaje)
         //busca en el nombre del personaje
         return personaje.name.toLowerCase().includes(this.search.toLowerCase())
       })
     },
-
   },
 }
 
@@ -105,16 +105,16 @@ export default {
     <input type="text" v-model="search" placeholder="Buscar por nombre">
   </div>
 
-<!--busqueda de personajes
+<!--busqueda de personajes-->
   <div class="mx-auto">
-  <div class="content-personajes flex" v-for="personaje in filtrarBusqueda"  :key="personaje.id">
+    <div class="content-personajes flex" v-for="personaje in filtrarBusqueda"  :key="personaje.id">
 
--->
-<div>
-  
+      <div>
+        {{ personaje.name }}
+      </div>
 
-  
-</div>
+    </div>
+  </div>
     
   <!--Botones paginas-->
   <div class="mt-5">
@@ -139,7 +139,7 @@ export default {
         </ul>
       </div>
     </div>
-    
+
     <div>
       <!--carta de personaje-->
       <div v-if="mostrar">
