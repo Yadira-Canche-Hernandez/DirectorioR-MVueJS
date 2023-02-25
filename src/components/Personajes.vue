@@ -109,7 +109,10 @@ export default {
           this.buscados = response.data;
           console.log(this.buscados)
         })
+        //si es por ir para que muestre
         this.mostrarBuscadoID = true
+        //mantenemos en falso para que no muestre datos de la tarjeta de todos los personajes
+        this.mostrarBuscados = false
       }
 
       //si no es numerico
@@ -122,8 +125,10 @@ export default {
           this.buscados = response.data.results;
           console.log(this.buscados)
         })
-        //cambiamos a verdadero
+        //cambiamos a verdadero que recibe por nombre 
         this.mostrarBuscados = true
+        //devolvemos falso por id
+        this.mostrarBuscadoID = false
       }
 
       console.log(API_URL) //comprobando API_URL en consola
@@ -170,7 +175,7 @@ export default {
 
   <!--si no recibe true en la variable mostrarBuscados
       ENCONTRO VARIOS PERSONAJES POR SU NOMBRE-->
-  <div v-else-if="mostrarBuscados">
+  <div v-if="mostrarBuscados">
     <!--Recorre la nueva lista y por cada personaje que encuentra-->    
     <div class="buscados" v-for="buscado in buscados">
       <!--muestra en pantalla la carta de personaje-->
