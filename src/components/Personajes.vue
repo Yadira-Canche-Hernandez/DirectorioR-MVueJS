@@ -23,6 +23,7 @@ export default {
       //para buscador
       buscar:"",
       buscados: [],
+      mostrarBuscadoID: false,
       mostrarBuscados: false,
 
     }
@@ -101,24 +102,33 @@ export default {
       if(!isNaN (buscar) === true) {
         //busca al personaje por su id
         API_URL='https://rickandmortyapi.com/api/character/'+buscar
+        axios.get(API_URL) //usando axios
+        .then((response) => {
+          //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
+          console.log(response.data)
+          this.buscados = response.data;
+          console.log(this.buscados)
+        })
+        this.mostrarBuscadoID = true
       }
 
       //si no es numerico
       else{
         //lo busca por nombre                
         API_URL='https://rickandmortyapi.com/api/character/?name='+buscar
-      }
-
-      console.log(API_URL) //comprobando API_URL en consola
-
-      axios.get(API_URL) //usando axios
+        axios.get(API_URL) //usando axios
         .then((response) => {
           //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
           this.buscados = response.data.results;
           console.log(this.buscados)
         })
         //cambiamos a verdadero
-        this.mostrarBuscados=true
+        this.mostrarBuscados = true
+      }
+
+      console.log(API_URL) //comprobando API_URL en consola
+        
+        
     },
   },
 }
@@ -142,8 +152,25 @@ export default {
   
   <!--Resultados Buscador-->
 
-  <!--si recibe true en la variable mostrarBuscados-->
-  <div v-if="mostrarBuscados">
+  <!--si recibe true en la variable mostrarBuscadosID
+      ES QUE BUSCO UN PERSONAJE POR SU ID-->
+  <div v-if="mostrarBuscadoID" class="container flex flex-col items-center mx-auto md:flex md:gap-4" >
+    <!--Recorre la nueva lista y por cada personaje que encuentra-->    
+    <div class="buscado por id ">
+      <!--muestra en pantalla la carta de personaje-->
+      <img :src="buscados.image" alt="">
+      <div class="info-buscados">
+        <h2> Id {{ buscados.id}}</h2>
+        <h2> Nombre {{ buscados.name}}</h2>
+        <h4> Especie {{ buscados.species}}</h4>
+        <h4> Estado {{ buscados.status}}</h4>
+      </div>
+    </div>      
+  </div>
+
+  <!--si no recibe true en la variable mostrarBuscados
+      ENCONTRO VARIOS PERSONAJES POR SU NOMBRE-->
+  <div v-else-if="mostrarBuscados">
     <!--Recorre la nueva lista y por cada personaje que encuentra-->    
     <div class="buscados" v-for="buscado in buscados">
       <!--muestra en pantalla la carta de personaje-->
