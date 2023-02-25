@@ -25,7 +25,7 @@ export default {
       buscados: [],
       mostrarBuscadoID: false,
       mostrarBuscados: false,
-
+      
     }
   },
 
@@ -53,24 +53,18 @@ export default {
         this.personajes = response.data.results;
         
       })
-      this.cont = this.cont-1
-      
-      
+      this.cont = this.cont-1 
     },
 
     //metodo para pagina siguiente
-    pagSig(num) {
-      //url de consumo API
-      API_URL='https://rickandmortyapi.com/api/character/?page='+num 
-      //lo obtiene
-      axios.get(API_URL)
-      //
+    pagSig() {  
+      //lo obtiene de info guardado en mounted 
+      axios.get(this.info.next)
       .then((response) => {
         
         this.info = response.data.info;
         this.personajes = response.data.results;
       })
-      this.cont++
     },
 
     //informacion de un personaje
@@ -146,7 +140,7 @@ export default {
   <h2 class="text-2xl my-10 text-center mx-5 sm:py-2">Hay un total de {{ info.count }} personajes en el programa de Rick & Morty</h2>
 
   <!--Buscador-->
-  <div class="flex justify-center items-center space-x-4 text-base my-8">
+  <div class="flex justify-center items-center space-x-4 text-base my-2">
     <input class="h-12 wl-5 px-7" type="text" v-model="buscar" placeholder="Buscar por nombre o id">
     <button
       @click="buscador(buscar)" 
@@ -190,13 +184,11 @@ export default {
   </div>
 
   <!--Botones paginas-->
-  <div class="mt-5">
+  <div class="flex justify-center items-center space-x-4 text-base my-8">
       <!--Pagina anterior-->
-      <button @click="pagRe(cont)" class="h-14 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white mb-8 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Anterior </button>
-      <!--Contador-->
-      <button @click="pag(cont)" class="h-14 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white mb-8 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">{{ cont }}</button>
+      <button @click="pagRe(cont)" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Anterior </button>
       <!--Pagina anterior-->
-      <button @click="pagSig(cont)" class="h-14 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white mb-8 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Siguiente </button>
+      <button @click="pagSig()" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Siguiente </button>
   </div>
   
   <div class="grid grid-cols-2">
