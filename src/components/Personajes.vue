@@ -12,7 +12,7 @@ export default {
       //para lista de personajes
       info: [],
       personajes: [],
-      cont:2,
+      
 
       //para tarjeta por personaje desde lista
       id: 0,
@@ -42,23 +42,18 @@ export default {
   methods: {
 
     //metodo para pagina anterior
-    pagRe(num) {
-      API_URL='https://rickandmortyapi.com/api/character/?page='+(num-1)
-      console.log(API_URL)
-      axios.get(API_URL)
+    pagAnte() {
+     //lo obtiene de info guardado en mounted llamando a prev
+     axios.get(this.info.prev)
       .then((response) => {
-        console.log(response.config)
         this.info = response.data.info;
-        console.log(this.info)
         this.personajes = response.data.results;
-        
       })
-      this.cont = this.cont-1 
     },
 
     //metodo para pagina siguiente
     pagSig() {  
-      //lo obtiene de info guardado en mounted 
+      //lo obtiene de info guardado en mounted llamando a next
       axios.get(this.info.next)
       .then((response) => {
         
@@ -186,8 +181,8 @@ export default {
   <!--Botones paginas-->
   <div class="flex justify-center items-center space-x-4 text-base my-8">
       <!--Pagina anterior-->
-      <button @click="pagRe(cont)" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Anterior </button>
-      <!--Pagina anterior-->
+      <button @click="pagAnte()" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Anterior </button>
+      <!--Pagina siguiente-->
       <button @click="pagSig()" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Siguiente </button>
   </div>
   
