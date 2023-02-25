@@ -95,11 +95,23 @@ export default {
     //funcion para buscar personajes
     buscador(buscar)  { 
       
-      //lo busca por nombre                
-      API_URL='https://rickandmortyapi.com/api/character/?name='+buscar
-      console.log(API_URL)
+        console.log(!isNaN (buscar)) //comprobando que funcione con la funcion isNan
 
-      axios.get(API_URL)
+      //si lo que recibe del input es un numero
+      if(!isNaN (buscar) === true) {
+        //busca al personaje por su id
+        API_URL='https://rickandmortyapi.com/api/character/'+buscar
+      }
+
+      //si no es numerico
+      else{
+        //lo busca por nombre                
+        API_URL='https://rickandmortyapi.com/api/character/?name='+buscar
+      }
+
+      console.log(API_URL) //comprobando API_URL en consola
+
+      axios.get(API_URL) //usando axios
         .then((response) => {
           //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
           this.buscados = response.data.results;
@@ -119,14 +131,31 @@ export default {
   <h2 class="text-2xl my-10 text-center mx-5 sm:py-2">Hay un total de {{ info.count }} personajes en el programa de Rick & Morty</h2>
 
   <!--Buscador-->
-    <div class="flex justify-center items-center space-x-4 text-base my-8">
-      <input class="h-12 wl-5 px-7" type="text" v-model="buscar" placeholder="Buscar por nombre o id">
-      <button
-        @click="buscador(buscar)" 
-        class="h-10 wl-5 px-7 font-semibold rounded-md bg-black text-white justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">
-        Buscar
-      </button>
-    </div>
+  <div class="flex justify-center items-center space-x-4 text-base my-8">
+    <input class="h-12 wl-5 px-7" type="text" v-model="buscar" placeholder="Buscar por nombre o id">
+    <button
+      @click="buscador(buscar)" 
+      class="h-10 wl-5 px-7 font-semibold rounded-md bg-black text-white justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">
+      Buscar
+    </button>
+  </div>
+  
+  <!--Resultados Buscador-->
+
+  <!--si recibe true en la variable mostrarBuscados-->
+  <div v-if="mostrarBuscados">
+    <!--Recorre la nueva lista y por cada personaje que encuentra-->    
+    <div class="buscados" v-for="buscado in buscados">
+      <!--muestra en pantalla la carta de personaje-->
+      <img :src="buscado.image" alt="">
+      <div class="info-buscados">
+        <h2> Id {{ buscado.id}}</h2>
+        <h2> Nombre {{ buscado.name}}</h2>
+        <h4> Especie {{ buscado.species}}</h4>
+        <h4> Estado {{ buscado.status}}</h4>
+      </div>
+    </div>      
+  </div>
 
   <!--Botones paginas-->
   <div class="mt-5">
