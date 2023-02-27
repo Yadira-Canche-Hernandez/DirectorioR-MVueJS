@@ -185,9 +185,12 @@ export default {
 
   <!--si no recibe true en la variable mostrarBuscados
       ENCONTRO VARIOS PERSONAJES POR SU NOMBRE-->
-  <div v-if="mostrarBuscados" class="flex-col mx-auto justify-center items-center space-x-4 text-base my-2">
+  <div class="">
+  <div v-if="mostrarBuscados" class="grid grid-cols-3 divide-x-0.5 justify-center items-center text-base my-2 p-3 mx-2">
+   
     <!--Recorre la nueva lista y por cada personaje que encuentra-->    
-    <div v-for="buscado in buscados" class="w-1/4 mx-auto my-auto p-3 border-4 border-black bg-white rounded-sm">
+    <div v-for="buscado in buscados" class=" my-5 mx-auto p-3 border-4 border-black bg-white rounded-sm">
+      
       <!--carta de personaje-->          
         <img :src="buscado.image" alt="" class="pb-4 drop-shadow-xl rounded-md">  
         <h2> <b>Id: </b> {{ buscado.id}}</h2>
@@ -196,8 +199,10 @@ export default {
         <h4> <b>Estado:</b> {{ buscado.status}}</h4>
         <h4> <b>Tipo:</b> {{ buscado.type}}</h4>
         <h4> <b>Locación:</b> {{ buscado.location.name}}</h4>
+      
     </div>    
   </div>
+</div>
 
   <div v-if="mostrarListas">
   <!--Botones paginas-->
