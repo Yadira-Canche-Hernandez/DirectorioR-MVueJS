@@ -12,7 +12,8 @@ export default {
       //para lista de personajes
       info: [],
       personajes: [],
-      
+      mostrarListas: true,
+      cont:2,
 
       //para tarjeta por personaje desde lista
       id: 0,
@@ -50,6 +51,12 @@ export default {
         this.info = response.data.info;
         this.personajes = response.data.results;
       })
+      if (this.cont < 3){
+        this.cont == this.cont
+      }
+      else{
+        this.cont-1
+      }
     },
 
     //metodo para pagina siguiente
@@ -61,6 +68,12 @@ export default {
         this.info = response.data.info;
         this.personajes = response.data.results;
       })
+      if (this.cont > 41){
+        this.cont == this.cont
+      }
+      else{
+        this.cont++
+      }
     },
 
     //informacion de un personaje
@@ -85,50 +98,53 @@ export default {
     },
     //funcion para buscar personajes
     buscador(buscar)  { 
-      
-        console.log(!isNaN (buscar)) //comprobando que funcione con la funcion isNan
-
-      //si lo que recibe del input es un numero
-      if(!isNaN (buscar) === true) {
-        //busca al personaje por su id
-        API_URL='https://rickandmortyapi.com/api/character/'+buscar
-        axios.get(API_URL) //usando axios
-        .then((response) => {
-          //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
-          console.log(response.data)
-          this.buscado = response.data;
-          console.log(this.buscado)
-        })
-        //si es por ir para que muestre
-        this.mostrarBuscadoID = true
-        //mantenemos en falso para que no muestre datos de la tarjeta de todos los personajes
+      if(buscar==""){
+        this.mostrarListas= true
         this.mostrarBuscados = false
-      }
-      
-      //si no es numerico
-      else{
-        
-        //lo busca por nombre                
-        API_URL='https://rickandmortyapi.com/api/character/?name='+buscar
-        axios.get(API_URL) //usando axios
-        .then((response) => {
-          //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
-          this.buscados = response.data.results;
-          console.log(this.buscados)
-          
-        })
-        //devolvemos falso por id
         this.mostrarBuscadoID = false
-        //cambiamos a verdadero que recibe por nombre 
-        this.mostrarBuscados = true
-        
       }
-
-      console.log(API_URL) //comprobando API_URL en consola
+      else{
+        this.mostrarListas= false
+        console.log(!isNaN (buscar)) //comprobando que funcione con la funcion isNan
+        //si lo que recibe del input es un numero
+        if(!isNaN (buscar) === true) {
+          //busca al personaje por su id
+          API_URL='https://rickandmortyapi.com/api/character/'+buscar
+          axios.get(API_URL) //usando axios
+          .then((response) => {
+            //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
+            console.log(response.data)
+            this.buscado = response.data;
+            console.log(this.buscado)
+          })
+          //si es por ir para que muestre
+          this.mostrarBuscadoID = true
+          //mantenemos en falso para que no muestre datos de la tarjeta de todos los personajes
+          this.mostrarBuscados = false
+        }
         
-        
+        //si no es numerico
+        else{
+          
+          //lo busca por nombre                
+          API_URL='https://rickandmortyapi.com/api/character/?name='+buscar
+          axios.get(API_URL) //usando axios
+          .then((response) => {
+            //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
+            this.buscados = response.data.results;
+            console.log(this.buscados)
+            
+          })
+          //devolvemos falso por id
+          this.mostrarBuscadoID = false
+          //cambiamos a verdadero que recibe por nombre 
+          this.mostrarBuscados = true
+          
+        }
+          console.log(API_URL) //comprobando API_URL en consola
+      }
     },
-  },
+  }
 }
 
 </script>
@@ -183,22 +199,24 @@ export default {
     </div>    
   </div>
 
+  <div v-if="mostrarListas">
   <!--Botones paginas-->
   <div class="flex justify-center items-center space-x-4 text-base my-8">
       <!--Pagina anterior-->
       <button @click="pagAnte()" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Anterior </button>
       <!--Pagina siguiente-->
-      <button @click="pagSig()" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Siguiente </button>
+      <button @click="pagSig(cont)" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Siguiente </button>
   </div>
   
   <div class="grid grid-cols-2 ">
-    <div class="m-auto">
+    <div class="m-auto" >
       <!--Listado de cada 20 personajes o sea pagina-->
-      <div class="text-2xl my-10 text-black mx-5 sm:py-2">
-        <ul class="text-xl">
+      <div class="text-2xl my-10 text-black mx-5 sm:py-2" >
+        <h1 > Personajes por página</h1><br>
+        <ul class="text-lg">
           <li v-for="p in personajes">
             <!--Llamando función obtener info personal por personaje-->
-            <button @click="InfoPer(p.id)">{{ p.name }} id:{{ p.id }}</button> 
+            <button @click="InfoPer(p.id)"> {{ p.id }}. {{ p.name }} </button> 
           </li>
         </ul>
       </div>
@@ -219,5 +237,5 @@ export default {
     </div>
   
   </div>
-
+</div>
 </template>
