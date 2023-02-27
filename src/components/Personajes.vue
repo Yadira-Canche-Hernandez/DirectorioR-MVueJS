@@ -22,6 +22,7 @@ export default {
 
       //para buscador
       buscar:"",
+      buscado:[],
       buscados: [],
       mostrarBuscadoID: false,
       mostrarBuscados: false,
@@ -95,17 +96,18 @@ export default {
         .then((response) => {
           //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
           console.log(response.data)
-          this.buscados = response.data;
-          console.log(this.buscados)
+          this.buscado = response.data;
+          console.log(this.buscado)
         })
         //si es por ir para que muestre
         this.mostrarBuscadoID = true
         //mantenemos en falso para que no muestre datos de la tarjeta de todos los personajes
         this.mostrarBuscados = false
       }
-
+      
       //si no es numerico
       else{
+        
         //lo busca por nombre                
         API_URL='https://rickandmortyapi.com/api/character/?name='+buscar
         axios.get(API_URL) //usando axios
@@ -113,11 +115,13 @@ export default {
           //toma todos los personajes que encuentra en resultados y lo almacena en la variable buscados
           this.buscados = response.data.results;
           console.log(this.buscados)
+          
         })
-        //cambiamos a verdadero que recibe por nombre 
-        this.mostrarBuscados = true
         //devolvemos falso por id
         this.mostrarBuscadoID = false
+        //cambiamos a verdadero que recibe por nombre 
+        this.mostrarBuscados = true
+        
       }
 
       console.log(API_URL) //comprobando API_URL en consola
@@ -148,34 +152,35 @@ export default {
 
   <!--si recibe true en la variable mostrarBuscadosID
       ES QUE BUSCO UN PERSONAJE POR SU ID-->
-  <div v-if="mostrarBuscadoID" class="container flex flex-col items-center mx-auto md:flex md:gap-4" >
+  <div v-if="mostrarBuscadoID" class="flex mx-auto justify-center items-center space-x-4 text-base my-2">
     <!--Recorre la nueva lista y por cada personaje que encuentra-->    
-    <div class="buscado por id ">
+    <div class="w-1/4 mx-auto my-auto p-3 border-4 border-black bg-white rounded-sm">
       <!--muestra en pantalla la carta de personaje-->
-      <img :src="buscados.image" alt="">
-      <div class="info-buscados">
-        <h2> Id {{ buscados.id}}</h2>
-        <h2> Nombre {{ buscados.name}}</h2>
-        <h4> Especie {{ buscados.species}}</h4>
-        <h4> Estado {{ buscados.status}}</h4>
-      </div>
+      <!--carta de personaje-->          
+      <img :src="buscado.image" alt="" class="pb-4 drop-shadow-xl rounded-md">  
+        <h2> <b>Id: </b> {{ buscado.id}}</h2>
+        <h2> <b>Nombre:</b> {{ buscado.name}}</h2>
+        <h4> <b>Especie:</b> {{ buscado.species}}</h4>
+        <h4> <b>Estado:</b> {{ buscado.status}}</h4>
+        <h4> <b>Tipo:</b> {{ buscado.type}}</h4>
+        <h4> <b>Locación:</b> {{ buscado.location.name}}</h4>
     </div>      
   </div>
 
   <!--si no recibe true en la variable mostrarBuscados
       ENCONTRO VARIOS PERSONAJES POR SU NOMBRE-->
-  <div v-if="mostrarBuscados">
+  <div v-if="mostrarBuscados" class="flex-col mx-auto justify-center items-center space-x-4 text-base my-2">
     <!--Recorre la nueva lista y por cada personaje que encuentra-->    
-    <div class="buscados" v-for="buscado in buscados">
-      <!--muestra en pantalla la carta de personaje-->
-      <img :src="buscado.image" alt="">
-      <div class="info-buscados">
-        <h2> Id {{ buscado.id}}</h2>
-        <h2> Nombre {{ buscado.name}}</h2>
-        <h4> Especie {{ buscado.species}}</h4>
-        <h4> Estado {{ buscado.status}}</h4>
-      </div>
-    </div>      
+    <div v-for="buscado in buscados" class="w-1/4 mx-auto my-auto p-3 border-4 border-black bg-white rounded-sm">
+      <!--carta de personaje-->          
+        <img :src="buscado.image" alt="" class="pb-4 drop-shadow-xl rounded-md">  
+        <h2> <b>Id: </b> {{ buscado.id}}</h2>
+        <h2> <b>Nombre:</b> {{ buscado.name}}</h2>
+        <h4> <b>Especie:</b> {{ buscado.species}}</h4>
+        <h4> <b>Estado:</b> {{ buscado.status}}</h4>
+        <h4> <b>Tipo:</b> {{ buscado.type}}</h4>
+        <h4> <b>Locación:</b> {{ buscado.location.name}}</h4>
+    </div>    
   </div>
 
   <!--Botones paginas-->
@@ -186,8 +191,8 @@ export default {
       <button @click="pagSig()" class="h-14 mx-2 sm:h-10 px-7 font-semibold rounded-md bg-slate-800 text-white my-2 justify-center shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105" type="center">Siguiente </button>
   </div>
   
-  <div class="grid grid-cols-2">
-    <div>
+  <div class="grid grid-cols-2 ">
+    <div class="m-auto">
       <!--Listado de cada 20 personajes o sea pagina-->
       <div class="text-2xl my-10 text-black mx-5 sm:py-2">
         <ul class="text-xl">
@@ -199,24 +204,20 @@ export default {
       </div>
     </div>
 
-    <div>
-      <!--carta de personaje-->
-      <div v-if="mostrar">
-        
-        <div class="personaje">
-
-          <img :src="infoUno.image" alt="">
-          <div class="info-personaje">
-            <h2> Nombre {{ infoUno.name}}</h2>
-            <h4> Especie {{ infoUno.species}}</h4>
-            <h4> Estado {{ infoUno.status}}</h4>
-
-          </div>
-          
-        </div>
-        
+    <div class="m-auto"  v-if="mostrar">
+      <!--carta de personaje-->          
+      <div class="w-3/4 mx-auto my-auto p-3 border-4 border-black bg-white rounded-sm">
+        <img :src="infoUno.image" alt="" class="pb-4 drop-shadow-xl rounded-md">  
+        <h2> <b>Id: </b> {{ infoUno.id}}</h2>
+        <h2> <b>Nombre:</b> {{ infoUno.name}}</h2>
+        <h4> <b>Especie:</b> {{ infoUno.species}}</h4>
+        <h4> <b>Estado:</b> {{ infoUno.status}}</h4>
+        <h4> <b>Tipo:</b> {{ infoUno.type}}</h4>
+        <h4> <b>Locación:</b> {{ infoUno.location.name}}</h4>
       </div>
+          
     </div>
+  
   </div>
 
 </template>
