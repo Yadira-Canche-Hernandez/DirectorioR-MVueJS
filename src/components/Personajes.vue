@@ -185,7 +185,6 @@ export default {
 
   <!--si no recibe true en la variable mostrarBuscados
       ENCONTRO VARIOS PERSONAJES POR SU NOMBRE-->
-  <div class="">
   <div v-if="mostrarBuscados" class="grid grid-cols-3 divide-x-0.5 justify-center items-center text-base my-2 p-3 mx-2">
    
     <!--Recorre la nueva lista y por cada personaje que encuentra-->    
@@ -202,7 +201,7 @@ export default {
       
     </div>    
   </div>
-</div>
+
 
   <div v-if="mostrarListas">
   <!--Botones paginas-->
